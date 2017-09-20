@@ -682,8 +682,12 @@ int VolumeManager::remountUid(uid_t uid, const std::string& mode) {
         }
 
 next:
-        close(nsFd);
-        close(pidFd);
+        if (nsFd >= 0) {
+            close(nsFd);
+        }
+        if (pidFd >= 0) {
+            close(pidFd);
+        }
     }
     closedir(dir);
     return 0;
